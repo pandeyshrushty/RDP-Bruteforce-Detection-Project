@@ -1,0 +1,106 @@
+**RDP Brute Force Detection Project
+
+(Windows 10 + Parrot OS + Event Logs)**
+
+This project demonstrates how failed Remote Desktop Protocol (RDP) login attempts can be detected using Windows Event Logs.
+A controlled brute-force attack was generated using Hydra from Parrot OS, and the resulting failed login logs (Event ID 4625) were collected and analyzed.
+
+🚀 Objective
+
+Perform a brute-force attack on a Windows 10 machine using Hydra
+
+Generate multiple failed RDP login attempts
+
+Detect these attempts in Windows Security Logs
+
+Document attack behavior and indicators
+
+Demonstrate SOC-style investigation
+
+🖥 Lab Setup
+Target Machine
+
+OS: Windows 10
+
+IP: 192.168.80.134
+
+RDP Enabled
+
+Username used: FunnyPhisher
+
+Weak lab password: Test@123 (for testing only)
+
+Attacker Machine
+
+OS: Parrot Security OS
+
+Tool used: Hydra
+
+🔥 Attack Execution (Hydra Command)
+hydra -l FunnyPhisher -P /usr/share/wordlists/rockyou.txt -t 1 rdp://192.168.80.134
+
+Breakdown:
+Option	Meaning
+-l	username
+-P	password list
+-t 1	only 1 thread → RDP stable
+rdp://IP	attack on RDP service
+
+Password list used:
+
+/usr/share/wordlists/rockyou.txt
+
+📁 Windows Security Logs (Event ID 4625)
+
+After hydra brute-force, Windows logs show:
+
+🔹 Event ID: 4625 (Failed Login)
+
+Each failed login contains:
+
+Account Name
+
+Source IP (Attacker IP)
+
+Failure Reason
+
+Time
+
+Event Viewer Path:
+
+Event Viewer →
+Windows Logs →
+Security →
+Filter by Event ID = 4625
+
+📊 Sample Log Entry (4625)
+An account failed to log on.
+Account Name: FunnyPhisher
+Failure Reason: Unknown user name or bad password
+Logon Type: 10 (Remote/ RDP)
+Source Network Address: 192.168.80.1
+Event ID: 4625
+
+
+(Tum apne system ka log yaha paste kar dena — maine placeholder diya hai)
+
+📌 Indicators of Attack
+Indicator	Value
+Multiple failed logins	Yes
+Logon Type	10 (RDP)
+Username	FunnyPhisher
+Attacker IP	Parrot OS ka IP
+Password Attempts	From rockyou.txt
+🛡 How to Detect RDP Brute Force
+🔹 Check Windows Logs:
+Security Logs → Event ID 4625
+
+🔹 Check for patterns:
+
+Same username
+
+Many attempts in seconds
+
+Logon Type = 10
+
+Unknown/Bad password
