@@ -22,3 +22,29 @@ This project demonstrates how to detect, analyze, and investigate an RDP brute-f
 ## 🔥 Attack Simulation
 Hydra command used:
 
+hydra -l USERNAME -P /usr/share/wordlists/rockyou.txt rdp://<Windows-IP
+
+logs/ → Windows Security Event Logs screenshots
+attack/ → Hydra commands & outputs
+configurations/ → Windows security policy settings
+report/ → Final SOC investigation report
+README.md → Project documentation
+
+
+## 🕵️ Investigation Summary
+- Multiple failed login attempts detected (Event ID: 4625)
+- Source IP identified from Windows logs
+- Attempted credentials analyzed
+- Mapped to MITRE ATT&CK Technique: T1110 (Brute Force)
+- Recommendations created to mitigate the attack
+
+## 🛠 Tools Used
+- Hydra
+- Windows Event Viewer
+- Parrot OS
+- RDP Protocol
+- Microsoft Security Logs
+
+## ✔ Final Output
+A complete SOC-level detection and investigation case study.
+
